@@ -14,5 +14,12 @@ func Sub_main() {
     var f * sndfile.File
     var inf sndfile.Info
     
-    f, err := sndfile.Open("data/test.wav", sndfile.Write, &inf)
+    inf.Format = 0
+    f, err := sndfile.Open("data/test2.aiff", sndfile.Read, &inf)
+    
+    fmt.Println(*f)
+    fmt.Println(err)
+    
+    
+    
 }
