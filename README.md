@@ -47,3 +47,5 @@ http://en.wikipedia.org/wiki/Pulse-code_modulation
 
 The channels are encoded : LR LR LR LR
 http://csserver.evansville.edu/~blandfor/EE356/WavFormatDocs.pdf
+
+Example os use :
