@@ -38,3 +38,9 @@ type Info struct {
 	Seekable   int32
 	// Buffered zone that you can pick ?
 }
+
+About audio encoding itself :
+http://www.commentcamarche.net/contents/81-le-son-numerique
+
+And the details :
+http://en.wikipedia.org/wiki/Pulse-code_modulation
