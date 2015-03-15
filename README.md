@@ -44,3 +44,6 @@ http://www.commentcamarche.net/contents/81-le-son-numerique
 
 And the details :
 http://en.wikipedia.org/wiki/Pulse-code_modulation
+
+The channels are encoded : LR LR LR LR
+http://csserver.evansville.edu/~blandfor/EE356/WavFormatDocs.pdf
