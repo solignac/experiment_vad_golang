@@ -61,7 +61,7 @@ func printImage(in string, out string) {
 		for channel := 0; channel < numChannels; channel ++ {
 			y := int(float64(buffer[i*numChannels+channel])*mult+float64(ImageHeight)/2) + ImageHeight * channel
 			outimage.Set(i, y, color.Black)
-			outimage.Set(i, y+1, color.Black)
+			outimage.Set(i, y+1, color.Red)
 		}
 	}
 	png.Encode(imageFile, outimage)
