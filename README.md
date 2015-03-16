@@ -49,3 +49,20 @@ The channels are encoded : LR LR LR LR
 http://csserver.evansville.edu/~blandfor/EE356/WavFormatDocs.pdf
 
 Example os use :
+http://blog.afandian.com/2012/07/sound-file-plotter-in-go-using-gosndfile-libsndfile/
+
+# Algorithms
+
+No OK :
+http://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm
+
+PPT about noise (exactly my problem)
+https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCcQFjAA&url=http%3A%2F%2Fwww.ece.lsu.edu%2Fwu%2Fpublic_html%2Fdemo_end_of_speech%2Fdemo_end_of_speech.ppt&ei=lBwGVaTNGoStUZj6gdgH&usg=AFQjCNEIcwr2qgZEzJ4rGKLZe_Ouk4Cmzw&sig2=RnfjXljK9N5-pdLKBZ3A3g
+
+Short Paper (Seems great) :
+https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CC8QFjAB&url=http%3A%2F%2Fresearchgroups.msu.edu%2Fsystem%2Ffiles%2Fgroup-publication%2Fmwscas02_entropy_endpoint_final.pdf&ei=Xh0GVfHELsv1UMiYhMgF&usg=AFQjCNFrI72ssEOnGZeg2jT-pQ-LBK4nsw&sig2=4c2AoDF4QmNxpUySIIwzUw
+
+Alternative :
+http://www.asel.udel.edu/icslp/cdrom/vol2/439/a439.pdf
+
+Again :
