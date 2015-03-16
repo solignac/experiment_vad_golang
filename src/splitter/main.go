@@ -60,8 +60,14 @@ func printImage(in string, out string) {
 	for i := 0; i < numSamples; i++ {
 		for channel := 0; channel < numChannels; channel ++ {
 			y := int(float64(buffer[i*numChannels+channel])*mult+float64(ImageHeight)/2) + ImageHeight * channel
-			outimage.Set(i, y, color.Black)
-			outimage.Set(i, y+1, color.Red)
+			
+			if channel == 0 { // Left Ref
+			    outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
+			} else { // Right Green
+			    outimage.Set(i, y, color.RGBA{0x00, 0xff, 0x00, 0xff})
+			    //outimage.Set(i, y+1, color.RGBA64{0xFF, 0x00, 0x00, 0xFF})   
+			}
+			//outimage.Set(i, y+1, color.Gray16{0xf000})
 		}
 	}
 	png.Encode(imageFile, outimage)
