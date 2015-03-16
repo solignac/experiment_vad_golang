@@ -16,7 +16,7 @@ import (
 func printImage(in string, out string) {
     
     // Number of seconds worth of buffer to allocate.
-    const Seconds = 2
+    const Seconds = 5
     // Height per channel.
     const ImageHeight = 200
     
@@ -36,7 +36,7 @@ func printImage(in string, out string) {
  	
  	buffer := make([]int16, Seconds*info.Samplerate*info.Channels)
  	numRead, err := soundFile.ReadItems(buffer)
- 	numSamples := int(numRead/int64(info.Channels))
+ 	numSamples := int(numRead/int64(info.Channels)) / 100
  	numChannels := int(info.Channels)
  	outimage := image.NewRGBA(image.Rect(0, 0, numSamples, ImageHeight * numChannels))
  	if err != nil {
@@ -44,8 +44,8 @@ func printImage(in string, out string) {
  	}
  	// Both math.Abs and math.Max operate on float64. Hm.
  	max := int16(0)
- 	for _, v := range buffer {
- 		if v > max {
+ 	for i, v := range buffer {
+ 		if i % 2 == 1 && v > max {
 			max = v
 		}
 	}
@@ -57,14 +57,14 @@ func printImage(in string, out string) {
 	fmt.Printf("Mult = %f \n", mult)
 
 	// Signed float so add 1 to turn [-1, 1] into [0, 2].
-	for i := 0; i < numSamples; i++ {
+	for i := 0; i < numSamples ; i++ {
 		for channel := 0; channel < numChannels; channel ++ {
 			y := int(float64(buffer[i*numChannels+channel])*mult+float64(ImageHeight)/2) + ImageHeight * channel
 			
 			if channel == 0 { // Left Ref
-			    outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
+			    //outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
 			} else { // Right Green
-			    outimage.Set(i, y, color.RGBA{0x00, 0xff, 0x00, 0xff})
+			    outimage.Set(i, y, color.RGBA{0xFF, 0x00, 0x00, 0xff})
 			    //outimage.Set(i, y+1, color.RGBA64{0xFF, 0x00, 0x00, 0xFF})   
 			}
 			//outimage.Set(i, y+1, color.Gray16{0xf000})
@@ -104,9 +104,8 @@ func printBegin() {
     fmt.Println("Item")
     f.ReadItems(bbuff)
     fmt.Println(bbuff)
-    
+
     f.Close()
-    
 }
 
 func Sub_main() {
