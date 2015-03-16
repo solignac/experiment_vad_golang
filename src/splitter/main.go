@@ -36,7 +36,7 @@ func printImage(in string, out string) {
  	
  	buffer := make([]int16, Seconds*info.Samplerate*info.Channels)
  	numRead, err := soundFile.ReadItems(buffer)
- 	numSamples := int(numRead/int64(info.Channels)) / 100
+ 	numSamples := int(numRead/int64(info.Channels))
  	numChannels := int(info.Channels)
  	outimage := image.NewRGBA(image.Rect(0, 0, numSamples, ImageHeight * numChannels))
  	if err != nil {
@@ -44,13 +44,23 @@ func printImage(in string, out string) {
  	}
  	// Both math.Abs and math.Max operate on float64. Hm.
  	max := int16(0)
+ 	min := int16(0)
  	for i, v := range buffer {
- 		if i % 2 == 1 && v > max {
+ 		if (i % 2) == 1 && v > max {
 			max = v
 		}
+		if (i % 2) == 1 && v < min {
+			min = v
+		}
 	}
-	fmt.Printf("Max = %d \n", max)
-
+	fmt.Printf("Max = %d, min = %d \n", max, min)
+	
+	var th int = ((int(max) - int(min)) / 2) + int(min)
+    
+    th = 0
+    
+    fmt.Printf("Th = %d \n", th)
+    
 	// Work out scaling factor to normalise signaland get best use of space.
 	mult := float64(float64(ImageHeight)/float64(max)) / 2
 	
@@ -64,7 +74,12 @@ func printImage(in string, out string) {
 			if channel == 0 { // Left Ref
 			    //outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
 			} else { // Right Green
-			    outimage.Set(i, y, color.RGBA{0xFF, 0x00, 0x00, 0xff})
+			
+			    if int(buffer[i*numChannels+channel]) < th {
+			        outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
+			    } else {
+			        outimage.Set(i, y, color.RGBA{0x00, 0x00, 0xff, 0xff})
+			    }
 			    //outimage.Set(i, y+1, color.RGBA64{0xFF, 0x00, 0x00, 0xFF})   
 			}
 			//outimage.Set(i, y+1, color.Gray16{0xf000})
