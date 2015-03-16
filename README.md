@@ -53,6 +53,8 @@ http://blog.afandian.com/2012/07/sound-file-plotter-in-go-using-gosndfile-libsnd
 
 # Algorithms
 
+"voice segmentation algorithm"
+
 Maybe to use later ? For prediction
 http://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm
 
