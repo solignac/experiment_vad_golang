@@ -58,21 +58,27 @@ http://blog.afandian.com/2012/07/sound-file-plotter-in-go-using-gosndfile-libsnd
 
 "voice segmentation algorithm"
 
+## Exact problem
+
+Entropy Method :
+https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CC8QFjAB&url=http%3A%2F%2Fresearchgroups.msu.edu%2Fsystem%2Ffiles%2Fgroup-publication%2Fmwscas02_entropy_endpoint_final.pdf&ei=Xh0GVfHELsv1UMiYhMgF&usg=AFQjCNFrI72ssEOnGZeg2jT-pQ-LBK4nsw&sig2=4c2AoDF4QmNxpUySIIwzUw
+
+Fourrier Method :
+http://www.clsp.jhu.edu/~zak/is-icassp03.pdf
+
+## Similar
+
+Word/Sub-word/Syllable segmentation
+http://www.asel.udel.edu/icslp/cdrom/vol2/439/a439.pdf
+http://esatjournals.org/Volumes/IJRET/2013V02/I09/IJRET20130209061.pdf
+http://lantana.tenet.res.in/website_files/publications/Speech/speech_communication_o.pdf
+
+## Helps
+
 Maybe to use later ? For prediction
 http://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm
 
 PPT about noise (exactly my problem)
 https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCcQFjAA&url=http%3A%2F%2Fwww.ece.lsu.edu%2Fwu%2Fpublic_html%2Fdemo_end_of_speech%2Fdemo_end_of_speech.ppt&ei=lBwGVaTNGoStUZj6gdgH&usg=AFQjCNEIcwr2qgZEzJ4rGKLZe_Ouk4Cmzw&sig2=RnfjXljK9N5-pdLKBZ3A3g
 
-Short Paper (Seems great) :
-https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0CC8QFjAB&url=http%3A%2F%2Fresearchgroups.msu.edu%2Fsystem%2Ffiles%2Fgroup-publication%2Fmwscas02_entropy_endpoint_final.pdf&ei=Xh0GVfHELsv1UMiYhMgF&usg=AFQjCNFrI72ssEOnGZeg2jT-pQ-LBK4nsw&sig2=4c2AoDF4QmNxpUySIIwzUw
-
-Alternative :
-http://www.asel.udel.edu/icslp/cdrom/vol2/439/a439.pdf
-
-Again :
-http://esatjournals.org/Volumes/IJRET/2013V02/I09/IJRET20130209061.pdf
-
-Exactly what I'll need :
-http://lantana.tenet.res.in/website_files/publications/Speech/speech_communication_o.pdf
 
