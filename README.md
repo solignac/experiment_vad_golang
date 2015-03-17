@@ -100,3 +100,9 @@ https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ve
 
 http://libvad.com/
 
+# API Speech Recognition
+
+Google Speech API
+
+https://github.com/gillesdemey/google-speech-v2
+
