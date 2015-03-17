@@ -57,6 +57,10 @@ http://blog.afandian.com/2012/07/sound-file-plotter-in-go-using-gosndfile-libsnd
 # Algorithms
 
 "voice segmentation algorithm"
+"voice activity detection"
+
+Audio Engineering Society
+http://www.aes.org/
 
 ## Exact problem
 
@@ -65,6 +69,13 @@ https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ve
 
 Fourrier Method :
 http://www.clsp.jhu.edu/~zak/is-icassp03.pdf
+http://www.ijcta.com/documents/volumes/vol4issue2/ijcta2013040202.pdf
+
+K-nearest-neighbor (KNN) and linear spectral pairs-vector quantization (LSP-VQ)
+http://www.cs.bc.edu/~hjiang/papers/journal/tsap.pdf
+
+Schur adaptive filtering
+https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=13&cad=rja&uact=8&ved=0CJ8BEBYwDA&url=https%3A%2F%2Fwww.amcs.uz.zgora.pl%2F%3Faction%3Ddownload%26pdf%3DAMCS_2014_24_2_3.pdf&ei=UWsHVan2C9PjaqSKgagE&usg=AFQjCNGa4eJ1ZR20TDMRtAb2KJfjliBHBQ&sig2=_IMv9pBg1yKMgSqtJIGJNg
 
 ## Similar
 
@@ -81,4 +92,8 @@ http://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm
 PPT about noise (exactly my problem)
 https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCcQFjAA&url=http%3A%2F%2Fwww.ece.lsu.edu%2Fwu%2Fpublic_html%2Fdemo_end_of_speech%2Fdemo_end_of_speech.ppt&ei=lBwGVaTNGoStUZj6gdgH&usg=AFQjCNEIcwr2qgZEzJ4rGKLZe_Ouk4Cmzw&sig2=RnfjXljK9N5-pdLKBZ3A3g
 
+
+# Already made solution
+
+http://libvad.com/
 
