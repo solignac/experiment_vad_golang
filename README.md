@@ -77,6 +77,9 @@ http://www.cs.bc.edu/~hjiang/papers/journal/tsap.pdf
 Schur adaptive filtering
 https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=13&cad=rja&uact=8&ved=0CJ8BEBYwDA&url=https%3A%2F%2Fwww.amcs.uz.zgora.pl%2F%3Faction%3Ddownload%26pdf%3DAMCS_2014_24_2_3.pdf&ei=UWsHVan2C9PjaqSKgagE&usg=AFQjCNGa4eJ1ZR20TDMRtAb2KJfjliBHBQ&sig2=_IMv9pBg1yKMgSqtJIGJNg
 
+Tuto :
+http://practicalcryptography.com/miscellaneous/machine-learning/voice-activity-detection-vad-tutorial/
+
 ## Similar
 
 Word/Sub-word/Syllable segmentation
