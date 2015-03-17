@@ -106,6 +106,10 @@ http://libvad.com/
 # API Speech Recognition
 
 Google Speech API
-
 https://github.com/gillesdemey/google-speech-v2
 
+MIT Hosting SR API
+https://code.google.com/p/wami/
+
+HP Solution
+https://www.idolondemand.com/developer/apis/recognizespeech#overview
