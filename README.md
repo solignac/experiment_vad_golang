@@ -95,6 +95,9 @@ http://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm
 PPT about noise (exactly my problem)
 https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCcQFjAA&url=http%3A%2F%2Fwww.ece.lsu.edu%2Fwu%2Fpublic_html%2Fdemo_end_of_speech%2Fdemo_end_of_speech.ppt&ei=lBwGVaTNGoStUZj6gdgH&usg=AFQjCNEIcwr2qgZEzJ4rGKLZe_Ouk4Cmzw&sig2=RnfjXljK9N5-pdLKBZ3A3g
 
+Vocabulary
+http://en.wikipedia.org/wiki/Talkspurt
+
 
 # Already made solution
 
