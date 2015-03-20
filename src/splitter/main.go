@@ -185,6 +185,39 @@ func printInfo(fileName string) {
 	fmt.Println("")
 }
 
+func sender(info *sndfile.Info, net chan<- int16, file *sndfile.File) {
+	
+	// Number of seconds worth of buffer to allocate.
+	const Seconds = 1
+	
+	buffer := make([]int16, Seconds*info.Samplerate*info.Channels)
+
+	
+	numRead, err := file.ReadItems(buffer)
+	for ; numRead != 0;  {
+		
+		if err != nil {
+			log.Fatal(err)
+		}
+		
+		numSamples := int(numRead / int64(info.Channels))
+		numChannels := int(info.Channels)		
+		
+		for i := 0; i < numSamples; i++ {
+			for channel := 0; channel < numChannels; channel++ {
+	
+				net <- buffer[i*numChannels+channel]
+			}
+		}
+		numRead, err = file.ReadItems(buffer)
+	}
+	
+}
+
+func splitter(info *sndfile.Info, net <-chan int16) {
+
+}
+
 func Sub_main() {
 
 	fmt.Println("Start")
@@ -192,7 +225,20 @@ func Sub_main() {
 	fmt.Println(s)
 
 	const audioFile = "data/test2.aiff"
+	var info sndfile.Info
 
+	file, err := sndfile.Open(audioFile, sndfile.Read, &info)
+
+	if err != nil {
+		log.Fatal("Error", err)
+	}
+
+	var net chan int16
+	
+	go splitter(&info, net)
+	sender(&info, net, file)
+
+/*
 	printInfo(audioFile)
 	printImageShort(audioFile, "data/out_900.png", 900)
 	printImageShort(audioFile, "data/out_500.png", 500)
@@ -201,4 +247,5 @@ func Sub_main() {
 	printImageShort(audioFile, "data/out_200.png", 200)
 	printImageShort(audioFile, "data/out_150.png", 150)
 	printImageShort(audioFile, "data/out_120.png", 120)
+*/
 }
