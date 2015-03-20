@@ -17,20 +17,22 @@ func printLine(file *image.RGBA, p int, h int) {
 	}
 }
 
-func printSpectr(file *image.RGBA, p int, h int, pow int, c color.RGBA) {
-	h = h / 2
-	if pow < h {
-		for i := h; i > pow; i-- {
-			file.Set(p, i, c)
+func printSpectr(file *image.RGBA, x int, height int, ampl int, col color.RGBA) {
+
+	height = height / 2
+	if ampl < height {
+		for i := height; i > ampl; i-- {
+			file.Set(x, i, col)
 		}
 	} else {
-		for i := h; i < pow; i++ {
-			file.Set(p, i, c)
+		for i := height; i < ampl; i++ {
+			file.Set(x, i, col)
 		}
 	}
 }
 
 func printImageShort(in string, out string, div int) {
+
 	// Number of seconds worth of buffer to allocate.
 	const Seconds = 10
 	// Height per channel.
@@ -67,8 +69,8 @@ func printImageShort(in string, out string, div int) {
 	var subTotal int64 = 0
 	var nbr int64 = 0
 	var actualPack int = 0
-	totalBuff := make([]int16, nbrPack)
 
+	totalBuff := make([]int16, nbrPack)
 	totalBuffMin := make([]int16, nbrPack)
 	totalBuffMax := make([]int16, nbrPack)
 
@@ -145,7 +147,7 @@ func printImageShort(in string, out string, div int) {
 
 		if int(totalBuffMax[i]) > th {
 			t = color.RGBA{0xff, 0x00, 0x00, 0xff}  // Red
-			t2 = color.RGBA{0xff, 0xf0, 0x00, 0xff} // Yellow
+			t2 = color.RGBA{0xff, 0xa0, 0x00, 0xff} // Yellow
 
 		} else {
 			t = color.RGBA{0x00, 0x00, 0xff, 0xff}  // Dark blue
@@ -166,70 +168,37 @@ func printImageShort(in string, out string, div int) {
 	png.Encode(imageFile, outimage)
 }
 
-func printInfo(inf *sndfile.Info) {
+func printInfo(fileName string) {
 
-	fmt.Printf("Frames/Samples : %d \n", inf.Frames)
-	fmt.Printf("Sample rate : %d hz \n", inf.Samplerate)
-	fmt.Printf("Number of channel : %d \n", inf.Channels)
-	fmt.Printf("Calculated duration : %f \n", float64(inf.Frames)/float64(inf.Samplerate))
+	var info sndfile.Info
+
+	_, err := sndfile.Open(fileName, sndfile.Read, &info)
+
+	if err != nil {
+		log.Fatal("Error", err)
+	}
+
+	fmt.Printf("Frames/Samples : %d \n", info.Frames)
+	fmt.Printf("Sample rate : %d hz \n", info.Samplerate)
+	fmt.Printf("Number of channel : %d \n", info.Channels)
+	fmt.Printf("Calculated duration : %f \n", float64(info.Frames)/float64(info.Samplerate))
 	fmt.Println("")
-}
-
-func algo() {
-
-	var inf sndfile.Info
-
-	_, _ = sndfile.Open("data/test2.aiff", sndfile.Read, &inf)
-
-	// En secondes
-	const tempo float64 = 0.5
-
-	var fpersec = inf.Samplerate
-	var ftempo int = int(float64(fpersec) * tempo)
-
-	fmt.Printf("Pack of %d frames\n", ftempo)
-}
-
-func printBegin() {
-
-	var f *sndfile.File
-	var inf sndfile.Info
-
-	var abuff []int16 = make([]int16, 12)
-	var bbuff []int16 = make([]int16, 12)
-
-	f, _ = sndfile.Open("data/test2.aiff", sndfile.Read, &inf)
-
-	printInfo(&inf)
-
-	fmt.Println("Sample")
-	f.ReadFrames(abuff)
-	fmt.Println(abuff)
-
-	f.Close()
-	f, _ = sndfile.Open("data/test2.aiff", sndfile.Read, &inf)
-
-	fmt.Println("Item")
-	f.ReadItems(bbuff)
-	fmt.Println(bbuff)
-
-	f.Close()
 }
 
 func Sub_main() {
 
-	fmt.Println("OK")
-
+	fmt.Println("Start")
 	s, _ := sndfile.GetLibVersion()
 	fmt.Println(s)
-	algo()
 
-	printImageShort("data/test2.aiff", "data/out_900.png", 900)
-	printImageShort("data/test2.aiff", "data/out_500.png", 500)
-	printImageShort("data/test2.aiff", "data/out_400.png", 400)
-	printImageShort("data/test2.aiff", "data/out_300.png", 300)
-	printImageShort("data/test2.aiff", "data/out_200.png", 200)
-	printImageShort("data/test2.aiff", "data/out_150.png", 150)
-	printImageShort("data/test2.aiff", "data/out_120.png", 120)
+	const audioFile = "data/test2.aiff"
 
+	printInfo(audioFile)
+	printImageShort(audioFile, "data/out_900.png", 900)
+	printImageShort(audioFile, "data/out_500.png", 500)
+	printImageShort(audioFile, "data/out_400.png", 400)
+	printImageShort(audioFile, "data/out_300.png", 300)
+	printImageShort(audioFile, "data/out_200.png", 200)
+	printImageShort(audioFile, "data/out_150.png", 150)
+	printImageShort(audioFile, "data/out_120.png", 120)
 }
