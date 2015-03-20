@@ -11,12 +11,13 @@ import (
 	"image/png"
 	"log"
 	"os"
+	"math"
 )
 
 func printImage(in string, out string) {
 
 	// Number of seconds worth of buffer to allocate.
-	const Seconds = 5
+	const Seconds = 8
 	// Height per channel.
 	const ImageHeight = 200
 
@@ -88,6 +89,119 @@ func printImage(in string, out string) {
 	png.Encode(imageFile, outimage)
 }
 
+func printLine(file *image.RGBA, p int, h int) {
+	
+	for i := 0; i < h; i++ {
+		file.Set(p, i, color.RGBA{0x00, 0x00, 0x00, 0xff})
+	}
+	
+}
+
+func printImageShort(in string, out string, div int) {
+
+	// Number of seconds worth of buffer to allocate.
+	const Seconds = 8
+	// Height per channel.
+	const ImageHeight = 200
+
+	var info sndfile.Info
+	soundFile, err := sndfile.Open(in, sndfile.Read, &info)
+
+	if err != nil {
+		log.Fatal("Error", err)
+	}
+	defer soundFile.Close()
+
+	imageFile, err := os.Create(out)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer imageFile.Close()
+
+	buffer := make([]int16, Seconds*info.Samplerate*info.Channels)
+	numRead, err := soundFile.ReadItems(buffer)
+	numSamples := int(numRead / int64(info.Channels))
+	numChannels := int(info.Channels)
+	if err != nil {
+		return
+	}
+
+	// Compression à 1/100. On ignore le channel 0
+	const ch = 1
+	var packFrame int64 = int64(info.Samplerate / int32(div))
+	nbrPack := int(math.Ceil(float64(numSamples) / float64(packFrame)))
+	
+	//Buffers
+	var subTotal int64 = 0
+	var nbr int64 = 0
+	var actualPack int = 0
+	totalBuff := make([]int16, nbrPack)
+	
+	
+	outimage := image.NewRGBA(image.Rect(0, 0, nbrPack, ImageHeight))
+	
+	fmt.Printf("Width=%d, Height=%d \n", nbrPack, ImageHeight)
+	
+	// GO
+	for i := 0; i < numSamples; i++ {
+		for channel := 0; channel < numChannels; channel++ {
+			
+			if channel == ch {
+				val := buffer[i*numChannels+channel]
+				subTotal += int64(val)
+				nbr++
+			}
+			if nbr == packFrame {
+				
+				totalBuff[actualPack] = int16(subTotal / nbr)
+				nbr = 0
+				subTotal = 0
+				actualPack++
+			}
+		}
+	}
+	
+	// Both math.Abs and math.Max operate on float64. Hm.
+	max := int16(0)
+	min := int16(0)
+	for _, v := range totalBuff {
+		if v > max {
+			max = v
+		}
+		if v < min {
+			min = v
+		}
+	}
+	fmt.Printf("Max = %d, min = %d \n", max, min)
+
+	var th int = ((int(max) - int(min)) / 2) + int(min)
+
+	th = 0
+
+	fmt.Printf("Th = %d \n", th)
+
+	// Work out scaling factor to normalise signaland get best use of space.
+	mult := float64(float64(ImageHeight)/float64(max)) / 2
+
+	fmt.Printf("Mult = %f \n", mult)
+
+	// Signed float so add 1 to turn [-1, 1] into [0, 2].
+	for i := 0; i < nbrPack; i++ {
+		y := int(float64(totalBuff[i])*mult+float64(ImageHeight)/2)
+
+		if int(totalBuff[i]) < th {
+			outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
+		} else {
+			outimage.Set(i, y, color.RGBA{0x00, 0x00, 0xff, 0xff})
+		}
+		
+		if i % div == 0 {
+			printLine(outimage, i, ImageHeight)
+		}
+	}
+	png.Encode(imageFile, outimage)
+}
+
 func printInfo(inf *sndfile.Info) {
 
 	fmt.Printf("Frames/Samples : %d \n", inf.Frames)
@@ -147,7 +261,14 @@ func Sub_main() {
 
 	fmt.Println(s)
 
-	printBegin()
-	//printImage("data/test2.aiff", "data/out.png")
+	//printBegin()
+	//printImageShort("data/test2.aiff", "data/out_5000.png", 5000)
+	printImageShort("data/test2.aiff", "data/out_900.png", 900)
+	printImageShort("data/test2.aiff", "data/out_500.png", 500)
+	printImageShort("data/test2.aiff", "data/out_400.png", 400)
+	printImageShort("data/test2.aiff", "data/out_300.png", 300)
+	printImageShort("data/test2.aiff", "data/out_200.png", 200)
+	//printImageShort("data/test2.aiff", "data/out_50.png", 50)
+	//printImageShort("data/test2.aiff", "data/out_10.png", 10)
 	algo()
 }
