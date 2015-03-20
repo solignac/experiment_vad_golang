@@ -97,6 +97,21 @@ func printLine(file *image.RGBA, p int, h int) {
 	
 }
 
+func printSpectr(file *image.RGBA, p int, h int, pow int, c color.RGBA) {
+	
+	h = h/2
+	
+	if pow < h {
+		for i := h; i > pow; i-- {
+			file.Set(p, i, c)
+		}
+	} else {
+		for i := h; i < pow; i++ {
+			file.Set(p, i, c)
+		}
+	}
+}
+
 func printImageShort(in string, out string, div int) {
 
 	// Number of seconds worth of buffer to allocate.
@@ -191,8 +206,13 @@ func printImageShort(in string, out string, div int) {
 
 		if int(totalBuff[i]) < th {
 			outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
+			
+			printSpectr(outimage, i, ImageHeight, y, color.RGBA{0xff, 0xf0, 0x0, 0xff})
+			
 		} else {
 			outimage.Set(i, y, color.RGBA{0x00, 0x00, 0xff, 0xff})
+		
+			printSpectr(outimage, i, ImageHeight, y, color.RGBA{0x00, 0xf0, 0xff, 0xff})
 		}
 		
 		if i % div == 0 {
