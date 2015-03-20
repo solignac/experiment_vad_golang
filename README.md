@@ -113,3 +113,6 @@ https://code.google.com/p/wami/
 
 HP Solution
 https://www.idolondemand.com/developer/apis/recognizespeech#overview
+
+WebRTC does exactly that
+https://code.google.com/p/webrtc/source/browse/trunk/#trunk%2Fwebrtc%2Fcommon_audio%2Fvad
