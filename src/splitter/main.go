@@ -189,6 +189,8 @@ func printImageShort(in string, out string, div int) {
 	// Both math.Abs and math.Max operate on float64. Hm.
 	max := int16(0)
 	min := int16(0)
+	
+	
 	for _, v := range totalBuff {
 		if v > max {
 			max = v
@@ -199,15 +201,25 @@ func printImageShort(in string, out string, div int) {
 	}
 	fmt.Printf("Max = %d, min = %d \n", max, min)
 
-	var th int = ((int(max) - int(min)) / 2) + int(min)
+	// Nouveau seuil
+	
+	middlePos := 0
+	totalTmp := 0
+	for _, v := range totalBuffMax {
+			totalTmp += int(v)
+	}
+	middlePos = totalTmp / len(totalBuffMax)
 
-	th = 0
+	//var th int = ((int(max) - int(min)) / 2) + int(min)
 
-	fmt.Printf("Th = %d \n", th)
-
+	th := middlePos
+	
 	// Work out scaling factor to normalise signaland get best use of space.
 	mult := float64(float64(ImageHeight)/float64(max)) / 2
-
+	
+	th2 :=int((float64(th) * mult) + float64(ImageHeight / 2))
+	
+	fmt.Printf("Th = %d, th2=%d \n", th, th2)
 	fmt.Printf("Mult = %f \n", mult)
 
 	// Signed float so add 1 to turn [-1, 1] into [0, 2].
@@ -219,19 +231,21 @@ func printImageShort(in string, out string, div int) {
 		var t color.RGBA
 		var t2 color.RGBA
 		
-		if int(totalBuff[i]) < th {
-			t = color.RGBA{0xff, 0x00, 0x00, 0xff}
-			t2 = color.RGBA{0xff, 0xf0, 0x00, 0xff}
+		if int(totalBuffMax[i]) > th {
+			t = color.RGBA{0xff, 0x00, 0x00, 0xff} // Red
+			t2 = color.RGBA{0xff, 0xf0, 0x00, 0xff} // Yellow
 			
 		} else {
-			t = color.RGBA{0x00, 0x00, 0xff, 0xff}
-			t2 = color.RGBA{0x00, 0xf0, 0xff, 0xff}
+			t = color.RGBA{0x00, 0x00, 0xff, 0xff} // Dark blue
+			t2 = color.RGBA{0x00, 0xf0, 0xff, 0xff} // Light blue
 		}
 		
 		outimage.Set(i, min, t)
 		outimage.Set(i, max, t)
 		printSpectr(outimage, i, ImageHeight, min, t2)
 		printSpectr(outimage, i, ImageHeight, max, t2)
+		
+		outimage.Set(i, th2, color.RGBA{0xff, 0x00, 0x00, 0xff})
 		
 		if i % div == 0 {
 			printLine(outimage, i, ImageHeight)
