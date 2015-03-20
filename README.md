@@ -99,9 +99,18 @@ Vocabulary
 http://en.wikipedia.org/wiki/Talkspurt
 
 
-# Already made solution
+## Already made solution
 
 http://libvad.com/
+
+## With real time
+
+WebRTC does that ?
+https://code.google.com/p/webrtc/source/browse/trunk/#trunk%2Fwebrtc%2Fcommon_audio%2Fvad
+
+Paper "simple"
+http://ms12.voip.edu.tw/~paul/Papper/Steganography/iLBC/(VAD)Real-Time_VAD_Algorithm.pdf
+
 
 # API Speech Recognition
 
@@ -114,5 +123,3 @@ https://code.google.com/p/wami/
 HP Solution
 https://www.idolondemand.com/developer/apis/recognizespeech#overview
 
-WebRTC does exactly that
-https://code.google.com/p/webrtc/source/browse/trunk/#trunk%2Fwebrtc%2Fcommon_audio%2Fvad
