@@ -152,6 +152,8 @@ func printImageShort(in string, out string, div int) {
 	var actualPack int = 0
 	totalBuff := make([]int16, nbrPack)
 	
+	totalBuffMin := make([]int16, nbrPack)
+	totalBuffMax := make([]int16, nbrPack)
 	
 	outimage := image.NewRGBA(image.Rect(0, 0, nbrPack, ImageHeight))
 	
@@ -165,6 +167,14 @@ func printImageShort(in string, out string, div int) {
 				val := buffer[i*numChannels+channel]
 				subTotal += int64(val)
 				nbr++
+				
+				if totalBuffMin[actualPack] > val {
+					totalBuffMin[actualPack] = val
+				}
+				if totalBuffMax[actualPack] < val {
+					totalBuffMax[actualPack] = val
+				}
+				
 			}
 			if nbr == packFrame {
 				
@@ -202,18 +212,26 @@ func printImageShort(in string, out string, div int) {
 
 	// Signed float so add 1 to turn [-1, 1] into [0, 2].
 	for i := 0; i < nbrPack; i++ {
-		y := int(float64(totalBuff[i])*mult+float64(ImageHeight)/2)
+		//y := int(float64(totalBuff[i])*mult+float64(ImageHeight)/2)
+		min := int(float64(totalBuffMin[i])*mult+float64(ImageHeight)/2)
+		max := int(float64(totalBuffMax[i])*mult+float64(ImageHeight)/2)
 
+		var t color.RGBA
+		var t2 color.RGBA
+		
 		if int(totalBuff[i]) < th {
-			outimage.Set(i, y, color.RGBA{0xff, 0x00, 0x00, 0xff})
-			
-			printSpectr(outimage, i, ImageHeight, y, color.RGBA{0xff, 0xf0, 0x0, 0xff})
+			t = color.RGBA{0xff, 0x00, 0x00, 0xff}
+			t2 = color.RGBA{0xff, 0xf0, 0x00, 0xff}
 			
 		} else {
-			outimage.Set(i, y, color.RGBA{0x00, 0x00, 0xff, 0xff})
-		
-			printSpectr(outimage, i, ImageHeight, y, color.RGBA{0x00, 0xf0, 0xff, 0xff})
+			t = color.RGBA{0x00, 0x00, 0xff, 0xff}
+			t2 = color.RGBA{0x00, 0xf0, 0xff, 0xff}
 		}
+		
+		outimage.Set(i, min, t)
+		outimage.Set(i, max, t)
+		printSpectr(outimage, i, ImageHeight, min, t2)
+		printSpectr(outimage, i, ImageHeight, max, t2)
 		
 		if i % div == 0 {
 			printLine(outimage, i, ImageHeight)
