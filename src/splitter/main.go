@@ -288,6 +288,8 @@ func Sub_main() {
 	printImageShort("data/test2.aiff", "data/out_400.png", 400)
 	printImageShort("data/test2.aiff", "data/out_300.png", 300)
 	printImageShort("data/test2.aiff", "data/out_200.png", 200)
+	printImageShort("data/test2.aiff", "data/out_150.png", 150)
+	printImageShort("data/test2.aiff", "data/out_120.png", 120)
 	//printImageShort("data/test2.aiff", "data/out_50.png", 50)
 	//printImageShort("data/test2.aiff", "data/out_10.png", 10)
 	algo()
