@@ -205,16 +205,34 @@ func sender(info *sndfile.Info, net chan<- int16, file *sndfile.File) {
 		
 		for i := 0; i < numSamples; i++ {
 			for channel := 0; channel < numChannels; channel++ {
-	
+				
 				net <- buffer[i*numChannels+channel]
 			}
 		}
+		buffer = make([]int16, Seconds*info.Samplerate*info.Channels)
 		numRead, err = file.ReadItems(buffer)
 	}
 	
 }
 
 func splitter(info *sndfile.Info, net <-chan int16) {
+
+	var chanUsed int = 1
+	//var duration float64 = 0.01
+	
+	//var sampleSize int = int(float64(info.Samplerate) * duration)
+	
+	var i int64
+	
+	frameLoop:
+	for i = int64(0) ; ; i++ {
+		
+		out := <- net
+		if i % int64(info.Channels) != int64(chanUsed) {
+			continue frameLoop
+		}
+		println("I=", i, " out=", out)
+	}
 
 }
 
@@ -233,7 +251,7 @@ func Sub_main() {
 		log.Fatal("Error", err)
 	}
 
-	var net chan int16
+	var net chan int16 = make(chan int16)
 	
 	go splitter(&info, net)
 	sender(&info, net, file)
