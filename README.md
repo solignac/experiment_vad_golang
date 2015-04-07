@@ -1,4 +1,4 @@
-# vocasplit
+# VAD en GO
 Copyright 2015 Thomas Solignac
 
 # Tools
